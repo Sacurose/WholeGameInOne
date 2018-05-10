@@ -12,7 +12,7 @@ public class CandyPooling : MonoBehaviour {
     private GameObject[] Candies;
     private int currentCandie = 0;
 
-    private Vector2 objectPoolPosition = new Vector2(0, 8);
+    private Vector2 objectPoolPosition = new Vector2(-15, -25);
 
     private float timeSinceLastSpawned;
 
@@ -28,6 +28,7 @@ public class CandyPooling : MonoBehaviour {
         {
             //...and create the individual columns.
             Candies[i] = (GameObject)Instantiate(BallPrefab, objectPoolPosition, Quaternion.identity);
+
         }
     }
 
@@ -41,14 +42,16 @@ public class CandyPooling : MonoBehaviour {
             timeSinceLastSpawned = 0f;
 
             float xForce = Random.Range(-sideForce, sideForce);
-            float yForce = 1f;            
+            float yForce = 1f;
 
+            Vector2 force = new Vector2(xForce, yForce);
 
+             BallPrefab.GetComponent<Rigidbody2D>().velocity = force;
 
             //...then set the current column to that position.
-            Candies[currentCandie].transform.position = new Vector3(xForce, yForce, -7f);
+            Candies[currentCandie].transform.position = new Vector3(xForce, yForce, -7f);            
 
-            //Increase the value of currentColumn. If the new size is too big, set it back to zero
+            //Increase the value of currentCandy. If the new size is too big, set it back to zero
             currentCandie++;
 
             if (currentCandie >= candyPoolSize)
@@ -58,7 +61,7 @@ public class CandyPooling : MonoBehaviour {
         }
     }
 
-    public void OnObjectSpawn()
+    /* public void OnObjectSpawn()
     {
         float xForce = Random.Range(-sideForce, sideForce);
         float yForce = 1f;
@@ -67,5 +70,5 @@ public class CandyPooling : MonoBehaviour {
 
         GetComponent<Rigidbody2D>().velocity = force;
 
-    }
+    }*/
 }
